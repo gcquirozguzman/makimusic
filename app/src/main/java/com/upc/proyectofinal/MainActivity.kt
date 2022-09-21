@@ -1,5 +1,6 @@
 package com.upc.proyectofinal
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -26,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
         asignarReferencias();
         recuperarDatos()
     }
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity() {
             txtCantidad.setText(intent.getStringExtra("cantidad"))
             txtPrecio.setText(intent.getStringExtra("precio"))
             txtTotal.setText(intent.getStringExtra("total"))
+            btnPedido.setText("Actualizar Pedido")
         }
     }
 
@@ -50,9 +54,18 @@ class MainActivity : AppCompatActivity() {
         txtTotal=findViewById(R.id.txtTotal)
         btnPedido=findViewById(R.id.btnPedido)
 
+        if (modificar){
+            btnPedido.setText("Actualizar Pedido")
+        } else {
+            btnPedido.setText("Registrar Pedido")
+        }
+
+
         btnPedido.setOnClickListener {
             registrarMakis()
         }
+
+
     }
     private fun registrarMakis(){
         //Toast.makeText(this, "Correcto", Toast.LENGTH_LONG).show()
@@ -89,7 +102,10 @@ class MainActivity : AppCompatActivity() {
         val ventana = AlertDialog.Builder(this)
         ventana.setTitle("Mensaje informativo")
         ventana.setMessage(mensaje)
-        ventana.setPositiveButton("Aceptar",null)
+        ventana.setPositiveButton("Aceptar") {dialog, which->
+            val intent = Intent(this, ListaActivity::class.java)
+            startActivity(intent)
+        }
         ventana.create().show()
     }
 
