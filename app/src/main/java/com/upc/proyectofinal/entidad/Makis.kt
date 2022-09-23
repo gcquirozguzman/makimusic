@@ -1,11 +1,10 @@
 package com.upc.proyectofinal.entidad
 
-class Makis {
-    var id:Int = 0
-    lateinit var nombre:String
-    lateinit var salsa:String
-    var cantidad:Int =0
-    var precio:Double =0.0
-    var total:Double = 0.0
-
+class Makis(id:String, nombre:String, salsa:String, cantidad:Int, precio:Double, total:Double) {
+    var id:String = id
+    var nombre:String = nombre
+    var salsa:String = salsa
+    var cantidad:Int = cantidad
+    var precio:Double = precio
+    var total:Double = total
 }

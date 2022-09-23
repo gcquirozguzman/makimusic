@@ -7,6 +7,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.upc.proyectofinal.modelo.MakisDAO
 import com.upc.proyectofinal.entidad.Makis
 
@@ -21,7 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     var makisDAO:MakisDAO= MakisDAO(this)
     private var modificar:Boolean = false
-    private var id:Int=0
+    private var id:String="ID"
+    private val db = Firebase.database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +39,7 @@ class MainActivity : AppCompatActivity() {
     private fun recuperarDatos(){
         if (intent.hasExtra("id")){
             modificar=true
-            id = intent.getStringExtra("id")?.toInt() ?: 0
+            id = intent.getStringExtra("id")?.toString() ?: "0"
             txtNombre.setText(intent.getStringExtra("nombre"))
             txtSalsa.setText(intent.getStringExtra("salsa"))
             txtCantidad.setText(intent.getStringExtra("cantidad"))
@@ -78,20 +81,23 @@ class MainActivity : AppCompatActivity() {
         if (nombre.isEmpty()||salsa.isEmpty()||cantidad.isEmpty()||precio.isEmpty()||total.isEmpty()){
             Toast.makeText(this,"Campos vacios",Toast.LENGTH_LONG).show()
         }else{
-            val obj=Makis()
-            if (modificar){
-                obj.id = id
-            }
-            obj.nombre=nombre
-            obj.salsa=salsa
-            obj.cantidad=cantidad.toInt()
-            obj.precio=precio.toDouble()
-            obj.total=total.toDouble()
+            val obj=Makis(
+                id,
+                nombre,
+                salsa,
+                cantidad.toInt(),
+                precio.toDouble(),
+                total.toDouble()
+            )
 
             var mensaje=""
+            val referencia = db.getReference("makis")
+
             if (modificar){
                 mensaje = makisDAO.modificarMakis(obj)
             }else{
+                referencia.child(referencia.push().key.toString()).setValue(obj)
+                mostrarMensaje("Se registro correctamente")
                 mensaje= makisDAO.registrarMakis(obj)
             }
             mostrarMensaje(mensaje)

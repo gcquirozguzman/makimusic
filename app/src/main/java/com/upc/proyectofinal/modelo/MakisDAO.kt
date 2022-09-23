@@ -70,20 +70,21 @@ class MakisDAO (context: Context){
             if(cursor.count>0){
                 cursor.moveToFirst()
                 do {
-                    val id:Int = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+                    val id:String = cursor.getString(cursor.getColumnIndexOrThrow("id"))
                     val nombre:String=cursor.getString(cursor.getColumnIndexOrThrow("nombre"))
                     val salsa:String=cursor.getString(cursor.getColumnIndexOrThrow("salsa"))
                     val cantidad:Int=cursor.getInt(cursor.getColumnIndexOrThrow("cantidad"))
                     val precio:Double=cursor.getDouble(cursor.getColumnIndexOrThrow("precio"))
                     val total:Double=cursor.getDouble(cursor.getColumnIndexOrThrow("total"))
 
-                    val makis=Makis()
-                    makis.id=id
-                    makis.nombre=nombre
-                    makis.salsa=salsa
-                    makis.cantidad=cantidad
-                    makis.precio=precio
-                    makis.total=total
+                    val makis=Makis(
+                        id,
+                        nombre,
+                        salsa,
+                        cantidad,
+                        precio,
+                        total
+                    )
 
                     listaMakis.add(makis)
                 }while (cursor.moveToNext())
@@ -96,7 +97,7 @@ class MakisDAO (context: Context){
         return listaMakis
     }
 
-    fun eliminarMakis(id:Int):String{
+    fun eliminarMakis(id:String):String{
         var respuesta = ""
         val db = makisBD.writableDatabase
         try {
