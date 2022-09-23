@@ -27,7 +27,7 @@ class ListaActivity : AppCompatActivity() {
     private val db = Firebase.database
     private lateinit var messagesListener: ValueEventListener
     val referencia = db.getReference("makis")
-    //private val listaMakis:MutableList<Makis> = ArrayList()
+    private val listaMakis:MutableList<Makis> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,10 +64,10 @@ class ListaActivity : AppCompatActivity() {
         ventana.setNegativeButton("No", null)
         ventana.setPositiveButton("Si"){
                 dialog, _->
-            var mensaje = makisDAO.eliminarMakis(id)
+            referencia.child(id).removeValue()
             mostrarMakis()
             dialog.dismiss()
-            mostrarMensaje(mensaje)
+            mostrarMensaje("Se eliminó")
         }
         ventana.create().show()
     }
@@ -81,11 +81,36 @@ class ListaActivity : AppCompatActivity() {
     }
 
     private fun mostrarMakis(){
-        val listaMakis=makisDAO.cargarMakis()
+        //val listaMakis=makisDAO.cargarMakis()
         adaptador?.contexto(this)
-        adaptador?.addItems(listaMakis)
+        //adaptador?.addItems(listaMakis)
 
+        messagesListener = object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listaMakis.clear()
+                snapshot.children.forEach{ item->
+                    val maki:Makis = Makis(
+                        item.key.toString(),
+                        item.child("nombre").getValue().toString(),
+                        item.child("salsa").getValue().toString(),
+                        item.child("cantidad").getValue().toString().toInt(),
+                        item.child("precio").getValue().toString().toDouble(),
+                        item.child("total").getValue().toString().toDouble()
+                    )
+                    maki?.let { listaMakis.add(it) }
+                }
+                Log.d("==>", listaMakis.size.toString())
+                rvMakis.layoutManager = LinearLayoutManager(this@ListaActivity)
+                //rvMakis.adapter = AdaptadorMakis(listaMakis)
 
+                adaptador?.addItems(listaMakis)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("==>", error.message)
+            }
+        }
+        referencia.addValueEventListener(messagesListener)
 
 
 
