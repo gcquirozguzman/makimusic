@@ -32,4 +32,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.163"
         tools:listitem="@layout/fila" />
+
+    <Button
+        android:id="@+id/btnCerrar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cerrar"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="646dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

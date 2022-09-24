@@ -1,14 +1,16 @@
 package com.upc.proyectofinal
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Toast
+import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -18,9 +20,11 @@ import com.google.firebase.ktx.Firebase
 import com.upc.proyectofinal.entidad.Makis
 import com.upc.proyectofinal.modelo.MakisDAO
 
+
 class ListaActivity : AppCompatActivity() {
 
     private lateinit var btnAbrir:FloatingActionButton
+    private lateinit var btnCerrar:Button
     private lateinit var rvMakis: RecyclerView
     private var adaptador:AdaptadorMakis?=null
     private var makisDAO: MakisDAO= MakisDAO(this)
@@ -29,6 +33,8 @@ class ListaActivity : AppCompatActivity() {
     private lateinit var messagesListener: ValueEventListener
     val referencia = db.getReference("makis")
     private val listaMakis:MutableList<Makis> = ArrayList()
+
+    lateinit var mGoogleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +58,16 @@ class ListaActivity : AppCompatActivity() {
 
         adaptador?.setOnClickDeleteItem {
             eliminar(it.id)
+        }
+
+        btnCerrar=findViewById(R.id.btnCerrar)
+        btnCerrar.setOnClickListener{
+            GoogleSignIn.getClient(
+                this,
+                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+            ).signOut()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 

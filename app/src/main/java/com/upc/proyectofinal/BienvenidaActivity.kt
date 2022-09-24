@@ -31,7 +31,7 @@ class BienvenidaActivity : AppCompatActivity() {
 
     fun redirigirRegistro(){
         progressBar.setVisibility(View.VISIBLE)
-        val intent = Intent(this, ListaActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
 
