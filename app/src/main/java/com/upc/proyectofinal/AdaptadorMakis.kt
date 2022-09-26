@@ -43,9 +43,9 @@ class AdaptadorMakis : RecyclerView.Adapter<AdaptadorMakis.AdaptadorViewHolder> 
         fun bindView(makis:Makis){
             nombre.text=makis.nombre
             salsa.text=makis.salsa
-            cantidad.text=makis.cantidad.toString()
+            cantidad.text=makis.porciones.toString()
             precio.text=makis.precio.toString()
-            total.text=makis.total.toString()
+            total.text=makis.descuento.toString()
         }
     }
 
@@ -61,9 +61,9 @@ class AdaptadorMakis : RecyclerView.Adapter<AdaptadorMakis.AdaptadorViewHolder> 
             intent.putExtra("id",listaMakis[position].id.toString())
             intent.putExtra("nombre", listaMakis[position].nombre)
             intent.putExtra("salsa", listaMakis[position].salsa)
-            intent.putExtra("cantidad", listaMakis[position].cantidad.toString())
+            intent.putExtra("porciones", listaMakis[position].porciones.toString())
             intent.putExtra("precio", listaMakis[position].precio.toString())
-            intent.putExtra("total", listaMakis[position].total.toString())
+            intent.putExtra("descuento", listaMakis[position].descuento.toString())
 
             context.startActivity(intent)
         }

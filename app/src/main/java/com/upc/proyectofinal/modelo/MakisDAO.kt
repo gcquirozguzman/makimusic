@@ -18,9 +18,9 @@ class MakisDAO (context: Context){
             val valores = ContentValues()
             valores.put("nombre",makis.nombre)
             valores.put("salsa",makis.salsa)
-            valores.put("cantidad",makis.cantidad)
+            valores.put("porciones",makis.porciones)
             valores.put("precio",makis.precio);
-            valores.put("total",makis.total)
+            valores.put("descuento",makis.descuento)
             var resultado=db.insert("makis", null, valores)
             if (resultado==-1L){
                 respuesta="Error al insertar"
@@ -42,9 +42,9 @@ class MakisDAO (context: Context){
             val valores = ContentValues()
             valores.put("nombre",makis.nombre)
             valores.put("salsa",makis.salsa)
-            valores.put("cantidad",makis.cantidad)
+            valores.put("porciones",makis.porciones)
             valores.put("precio",makis.precio);
-            valores.put("total",makis.total)
+            valores.put("descuento",makis.descuento)
             var resultado=db.update("makis", valores, "id="+makis.id, null)
             if (resultado==-1){
                 respuesta="Error al actualizar"
@@ -73,17 +73,17 @@ class MakisDAO (context: Context){
                     val id:String = cursor.getString(cursor.getColumnIndexOrThrow("id"))
                     val nombre:String=cursor.getString(cursor.getColumnIndexOrThrow("nombre"))
                     val salsa:String=cursor.getString(cursor.getColumnIndexOrThrow("salsa"))
-                    val cantidad:Int=cursor.getInt(cursor.getColumnIndexOrThrow("cantidad"))
+                    val porciones:Int=cursor.getInt(cursor.getColumnIndexOrThrow("porciones"))
                     val precio:Double=cursor.getDouble(cursor.getColumnIndexOrThrow("precio"))
-                    val total:Double=cursor.getDouble(cursor.getColumnIndexOrThrow("total"))
+                    val descuento:Double=cursor.getDouble(cursor.getColumnIndexOrThrow("descuento"))
 
                     val makis=Makis(
                         id,
                         nombre,
                         salsa,
-                        cantidad,
+                        porciones,
                         precio,
-                        total
+                        descuento
                     )
 
                     listaMakis.add(makis)

@@ -25,7 +25,6 @@ import com.upc.proyectofinal.modelo.MakisDAO
 class ListaActivity : AppCompatActivity() {
 
     private lateinit var btnAbrir:FloatingActionButton
-    private lateinit var btnCerrar:Button
     private lateinit var rvMakis: RecyclerView
     private var adaptador:AdaptadorMakis?=null
     private var makisDAO: MakisDAO= MakisDAO(this)
@@ -61,15 +60,6 @@ class ListaActivity : AppCompatActivity() {
             eliminar(it.id)
         }
 
-        btnCerrar=findViewById(R.id.btnCerrar)
-        btnCerrar.setOnClickListener{
-            GoogleSignIn.getClient(
-                this,
-                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
-            ).signOut()
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     fun eliminar(id:String){
@@ -111,9 +101,9 @@ class ListaActivity : AppCompatActivity() {
                         item.key.toString(),
                         item.child("nombre").getValue().toString(),
                         item.child("salsa").getValue().toString(),
-                        item.child("cantidad").getValue().toString().toInt(),
+                        item.child("porciones").getValue().toString().toInt(),
                         item.child("precio").getValue().toString().toDouble(),
-                        item.child("total").getValue().toString().toDouble()
+                        item.child("descuento").getValue().toString().toDouble()
                     )
                     maki?.let { listaMakis.add(it) }
                 }
