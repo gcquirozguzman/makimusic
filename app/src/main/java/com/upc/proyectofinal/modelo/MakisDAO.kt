@@ -1,14 +1,17 @@
 package com.upc.proyectofinal.modelo
 
-import android.content.ContentValues
 import android.content.Context
+/*
+import android.content.ContentValues
 import android.database.Cursor
 import androidx.core.content.contentValuesOf
 import com.upc.proyectofinal.entidad.Makis
 import com.upc.proyectofinal.util.MakisBD
 import java.lang.Exception
-
+ */
 class MakisDAO (context: Context){
+
+    /*
     private var makisBD:MakisBD = MakisBD(context)
 
     fun registrarMakis(makis: Makis):String{
@@ -113,5 +116,5 @@ class MakisDAO (context: Context){
         db.close()
         }
         return respuesta
-    }
+    }*/
 }

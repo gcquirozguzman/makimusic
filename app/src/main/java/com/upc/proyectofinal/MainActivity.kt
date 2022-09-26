@@ -40,9 +40,9 @@ class MainActivity : AppCompatActivity() {
             id = intent.getStringExtra("id")?.toString() ?: "0"
             txtNombre.setText(intent.getStringExtra("nombre"))
             txtSalsa.setText(intent.getStringExtra("salsa"))
-            txtCantidad.setText(intent.getStringExtra("cantidad"))
+            txtCantidad.setText(intent.getStringExtra("porciones"))
             txtPrecio.setText(intent.getStringExtra("precio"))
-            txtTotal.setText(intent.getStringExtra("total"))
+            txtTotal.setText(intent.getStringExtra("descuento"))
             btnPedido.setText("Actualizar Pedido")
         }
     }
