@@ -18,7 +18,7 @@ class ResumenActivity : AppCompatActivity() {
     fun asignarReferencias(){
         btnRegresar=findViewById(R.id.btnRegresar)
         btnRegresar.setOnClickListener{
-            val intent = Intent(this, ListaActivity::class.java)
+            val intent = Intent(this, PrincipalActivity::class.java)
             startActivity(intent)
         }
     }
