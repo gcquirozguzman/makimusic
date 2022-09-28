@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -21,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var auth : FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
-
+    private lateinit var progressBar: ProgressBar
     private lateinit var btnLogin: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
-
+        progressBar=findViewById(R.id.progressBar)
         btnLogin=findViewById(R.id.gSignInBtn)
 
         btnLogin.setOnClickListener {
@@ -74,6 +76,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential).addOnCompleteListener{
 
             if(it.isSuccessful){
+                progressBar.setVisibility(View.VISIBLE)
                 val intent: Intent = Intent(this, PrincipalActivity::class.java)
                 intent.putExtra("email", account.email)
                 intent.putExtra("name", account.displayName)
@@ -82,6 +85,11 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        progressBar.setVisibility(View.INVISIBLE)
     }
 
 }

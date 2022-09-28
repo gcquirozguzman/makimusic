@@ -8,25 +8,37 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvMantenimientoMakis"
-        android:layout_width="match_parent"
         android:layout_height="115dp"
-        app:cardBackgroundColor="@color/cardview_dark_background"
-        app:cardCornerRadius="8dp"
-        app:cardUseCompatPadding="true"
+        app:cardBackgroundColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        app:cardElevation="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardUseCompatPadding="true">
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="-50dp"
+            android:text="Mantenimiento \n        Makis"
+            android:textColor="@color/black"
             android:textSize="30dp"
-            android:text="Mantenimiento de Makis"
-            android:textStyle="bold"
-            android:textColor="@color/white" />
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="260dp"
+            app:srcCompat="@drawable/mantmaki" />
 
     </androidx.cardview.widget.CardView>
 
@@ -43,4 +55,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:strokeColor="@color/gray"
         app:strokeWidth="2dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="75dp"
+        android:layout_height="77dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCerrarSesion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

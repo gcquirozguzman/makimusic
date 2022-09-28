@@ -19,8 +19,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".MantenimientoActivity"
+            android:name=".ResumenActivity"
             android:exported="false" />
+        <activity
+            android:name=".MetodoPagoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetallePedidoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GenerarPedidoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MantenimientoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ProyectoFinalBase" />
         <activity
             android:name=".PrincipalActivity"
             android:exported="false"
@@ -40,11 +53,13 @@
         </activity>
         <activity
             android:name=".ListaActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.ProyectoFinalBase" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:parentActivityName=".ListaActivity" />
+            android:parentActivityName=".ListaActivity"
+            android:theme="@style/Theme.ProyectoFinalBase" />
     </application>
 
 </manifest>
