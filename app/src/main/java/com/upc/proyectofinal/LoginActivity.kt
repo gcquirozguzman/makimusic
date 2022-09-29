@@ -2,15 +2,15 @@ package com.upc.proyectofinal
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.view.Window
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -80,8 +80,11 @@ class LoginActivity : AppCompatActivity() {
                 val intent: Intent = Intent(this, PrincipalActivity::class.java)
                 intent.putExtra("email", account.email)
                 intent.putExtra("name", account.displayName)
-                val imagen = account.photoUrl;
-                intent.putExtra("photoUrl", imagen)
+
+                val uri = account.photoUrl.toString().toUri()
+
+
+                intent.putExtra("capture", "https://lh3.googleusercontent.com/a/ALm5wu2DahmIJbD2cPVwPu0jO1whr1CkWnC9hMPOtckB=s96-c")
                 startActivity(intent)
             } else {
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()

@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import com.upc.proyectofinal.entidad.Makis
 import kotlinx.coroutines.Job
 
@@ -42,9 +43,8 @@ class PrincipalActivity : AppCompatActivity() {
         asignarReferencias()
         mostrarMakis()
 
-        //val intent = intent
-        //val hola = intent.getStringExtra("photoUrl")
-        //Picasso.get().load(imagenFoto).into(btnPerfilUsuario);
+        val capture = intent.getStringExtra("capture")
+        Picasso.get().load(capture).into(btnPerfilUsuario);
 
     }
 
