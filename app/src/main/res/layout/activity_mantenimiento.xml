@@ -29,8 +29,7 @@
             android:layout_marginLeft="-50dp"
             android:text="Mantenimiento \n        Makis"
             android:textColor="@color/black"
-            android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textSize="30dp" />
 
         <ImageView
             android:id="@+id/imageView2"

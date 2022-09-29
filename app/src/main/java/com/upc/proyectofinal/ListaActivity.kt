@@ -1,17 +1,14 @@
 package com.upc.proyectofinal
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
-import android.view.Window
-import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -97,13 +94,15 @@ class ListaActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 listaMakis.clear()
                 snapshot.children.forEach{ item->
+
                     val maki:Makis = Makis(
                         item.key.toString(),
                         item.child("nombre").getValue().toString(),
                         item.child("salsa").getValue().toString(),
                         item.child("porciones").getValue().toString().toInt(),
                         item.child("precio").getValue().toString().toDouble(),
-                        item.child("descuento").getValue().toString().toDouble()
+                        item.child("descuento").getValue().toString().toDouble(),
+                        item.child("imagen").getValue().toString()
                     )
                     maki?.let { listaMakis.add(it) }
                 }

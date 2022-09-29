@@ -80,6 +80,8 @@ class LoginActivity : AppCompatActivity() {
                 val intent: Intent = Intent(this, PrincipalActivity::class.java)
                 intent.putExtra("email", account.email)
                 intent.putExtra("name", account.displayName)
+                val imagen = account.photoUrl;
+                intent.putExtra("photoUrl", imagen)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()

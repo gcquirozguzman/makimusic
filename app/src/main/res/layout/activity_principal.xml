@@ -165,7 +165,7 @@
 
 
             <TextView
-                android:id="@+id/textView25"
+                android:id="@+id/txtNombreMaki1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -174,7 +174,7 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/textView26"
+                android:id="@+id/txtPrecioMaki1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -184,7 +184,7 @@
                 android:textColor="@color/white" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/imageViewM1"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
                 android:layout_gravity="right"
@@ -210,7 +210,7 @@
 
 
             <TextView
-                android:id="@+id/textView28"
+                android:id="@+id/txtNombreMaki2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -219,7 +219,7 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/textView29"
+                android:id="@+id/txtPrecioMaki2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -229,7 +229,7 @@
                 android:textColor="@color/white" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/imageViewM2"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
                 android:layout_gravity="right"
@@ -254,7 +254,7 @@
 
 
             <TextView
-                android:id="@+id/textView30"
+                android:id="@+id/txtNombreMaki3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -263,7 +263,7 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/textView33"
+                android:id="@+id/txtPrecioMaki3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -273,7 +273,7 @@
                 android:textColor="@color/white" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/imageViewM3"
                 android:layout_width="85dp"
                 android:layout_height="85dp"
                 android:layout_gravity="right"

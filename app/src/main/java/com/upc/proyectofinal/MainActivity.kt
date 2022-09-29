@@ -1,19 +1,28 @@
 package com.upc.proyectofinal
 
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.upc.proyectofinal.modelo.MakisDAO
 import com.upc.proyectofinal.entidad.Makis
+import com.upc.proyectofinal.modelo.MakisDAO
+import java.io.ByteArrayOutputStream
+
 
 class MainActivity : AppCompatActivity() {
+
+    var REQUEST_CODE = 200
 
     private lateinit var txtNombre:EditText
     private lateinit var txtSalsa:EditText
@@ -21,11 +30,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var txtPrecio:EditText
     private lateinit var txtTotal:EditText
     private lateinit var btnPedido:Button
+    private lateinit var imgMakis:ImageView
 
     var makisDAO:MakisDAO= MakisDAO(this)
     private var modificar:Boolean = false
     private var id:String="ID"
     private val db = Firebase.database
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         txtPrecio=findViewById(R.id.txtPrecio)
         txtTotal=findViewById(R.id.txtTotal)
         btnPedido=findViewById(R.id.btnPedido)
+        imgMakis=findViewById(R.id.imgMakis)
 
         if (modificar){
             btnPedido.setText("Actualizar Pedido")
@@ -66,6 +78,10 @@ class MainActivity : AppCompatActivity() {
             registrarMakis()
         }
 
+        imgMakis.setOnClickListener {
+            openGalleryForImages()
+        }
+
 
     }
     private fun registrarMakis(){
@@ -76,6 +92,11 @@ class MainActivity : AppCompatActivity() {
         val precio=txtPrecio.text.toString()
         val total=txtTotal.text.toString()
 
+        val bitmap = (imgMakis.getDrawable() as BitmapDrawable).bitmap
+        val bos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+        val imagen = bos.toByteArray();
+
         if (nombre.isEmpty()||salsa.isEmpty()||cantidad.isEmpty()||precio.isEmpty()||total.isEmpty()){
             Toast.makeText(this,"Campos vacios",Toast.LENGTH_LONG).show()
         }else{
@@ -85,7 +106,8 @@ class MainActivity : AppCompatActivity() {
                 salsa,
                 cantidad.toInt(),
                 precio.toDouble(),
-                total.toDouble()
+                total.toDouble(),
+                imagen.contentToString()
             )
 
             var mensaje=""
@@ -122,4 +144,53 @@ class MainActivity : AppCompatActivity() {
         txtPrecio.setText("")
         txtTotal.setText("")
     }
+
+    private fun openGalleryForImages() {
+
+        if (Build.VERSION.SDK_INT < 19) {
+            var intent = Intent()
+            intent.type = "image/*"
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(
+                Intent.createChooser(intent, "Choose Pictures")
+                , REQUEST_CODE
+            )
+        }
+        else { // For latest versions API LEVEL 19+
+            var intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "image/*"
+            startActivityForResult(intent, REQUEST_CODE);
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE){
+
+            // if multiple images are selected
+            if (data?.getClipData() != null) {
+                var count = data.clipData?.itemCount
+
+                for (i in 0..count!! - 1) {
+                    var imageUri: Uri = data.clipData?.getItemAt(i)!!.uri
+                    imgMakis.setImageURI(imageUri)
+                    //     iv_image.setImageURI(imageUri) Here you can assign your Image URI to the ImageViews
+                }
+
+            } else if (data?.getData() != null) {
+                // if single image is selected
+
+                var imageUri: Uri = data.data!!
+                imgMakis.setImageURI(imageUri)
+                //   iv_image.setImageURI(imageUri) Here you can assign the picked image uri to your imageview
+
+            }
+        }
+    }
+
 }

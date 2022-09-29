@@ -1,16 +1,18 @@
 package com.upc.proyectofinal
 
-import android.content.ComponentCallbacks
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.upc.proyectofinal.entidad.Makis
+
 
 class AdaptadorMakis : RecyclerView.Adapter<AdaptadorMakis.AdaptadorViewHolder> (){
 
@@ -33,9 +35,10 @@ class AdaptadorMakis : RecyclerView.Adapter<AdaptadorMakis.AdaptadorViewHolder> 
     class AdaptadorViewHolder (var view: View):RecyclerView.ViewHolder(view){
         private var nombre=view.findViewById<TextView>(R.id.filaNombre)
         private var salsa=view.findViewById<TextView>(R.id.filaSalsa)
-        private var cantidad=view.findViewById<TextView>(R.id.filaCantidad)
+        private var porciones=view.findViewById<TextView>(R.id.filaPorciones)
         private var precio=view.findViewById<TextView>(R.id.filaPrecio)
-        private var total=view.findViewById<TextView>(R.id.filaTotal)
+        private var descuento=view.findViewById<TextView>(R.id.filaDescuento)
+        private var imagen=view.findViewById<ImageView>(R.id.filaImagen)
 
         var filaEditar = view.findViewById<ImageButton>(R.id.btnEditar)
         var filaEliminar = view.findViewById<ImageButton>(R.id.btnEliminar)
@@ -43,9 +46,13 @@ class AdaptadorMakis : RecyclerView.Adapter<AdaptadorMakis.AdaptadorViewHolder> 
         fun bindView(makis:Makis){
             nombre.text=makis.nombre
             salsa.text=makis.salsa
-            cantidad.text=makis.porciones.toString()
+            porciones.text=makis.porciones.toString()
             precio.text=makis.precio.toString()
-            total.text=makis.descuento.toString()
+            descuento.text=makis.descuento.toString()
+
+            val food: ByteArray = makis.imagen.toByteArray()
+            val valor = BitmapFactory.decodeByteArray(food, 0, food.size)
+            imagen.setImageBitmap(valor)
         }
     }
 
